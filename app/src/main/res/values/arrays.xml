@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="labels_sort_articles_by">
+        <item>@string/sortby_articletitle</item>
+        <item>@string/sortby_date</item>
+    </string-array>
+
+<string-array name="values_sort_articles_by">
+    <item>@string/sortby_articletitle_value</item>
+    <item>@string/sortby_date_value</item>
+</string-array>
+</resources>

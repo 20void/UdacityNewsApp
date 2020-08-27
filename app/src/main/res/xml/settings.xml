@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:id="@+id/editpref"
+        android:title="GAVNA 23" />
+    <ListPreference
+        android:defaultValue="@string/sortby_date"
+        android:entries="@array/labels_sort_articles_by"
+        android:entryValues="@array/values_sort_articles_by"
+        android:key="@string/order_by_key"
+        android:title="@string/order_by"
+
+        />
+
+</PreferenceScreen>

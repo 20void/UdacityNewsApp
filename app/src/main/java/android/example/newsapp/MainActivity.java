@@ -14,7 +14,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public ArrayList<Article> articles = new ArrayList<>();
     public RecyclerView recyclerView;
     private ArticleAdapter aAdapter;
+    private ProgressBar progressBar;
     public final String URL = "https://content.guardianapis.com/search?section=technology&from-date=2020-08-24&to-date=2020-08-26&q=technology&api-key=test";
 
     @Override
@@ -41,9 +45,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         recyclerView = findViewById(R.id.recycler);
+        progressBar = findViewById(R.id.progress_bar);
 
         aAdapter = new ArticleAdapter(articles);
         recyclerView.setAdapter(aAdapter);
@@ -157,19 +160,37 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader onCreateLoader(int id, @Nullable Bundle args) {
+        progressBar.setVisibility(View.VISIBLE);
         return new ArticleTaskLoader(this, URL);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Article>> loader, ArrayList<Article> data) {
+        progressBar.setVisibility(View.GONE);
         aAdapter.setNewsArray(data);
     }
-
 
 
     @Override
     public void onLoaderReset(@NonNull Loader loader) {
         aAdapter.clearAdapter();
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu) {
+            Intent openSettings = new Intent(this, SettingsActivity.class);
+            startActivity(openSettings);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

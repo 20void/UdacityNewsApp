@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">News App</string>
+    <string name="settingsactivity_name">Settings</string>
+    <string name="order_by">Order By</string>
+    <string name="order_by_key">order_by</string>
+    <string name="sortby_date">Date</string>
+    <string name="sortby_articletitle">Alphabetically</string>
+    <string name="sortby_date_value" translatable="false">date</string>
+    <string name="sortby_articletitle_value" translatable="false">alphabetically</string>
 </resources>
