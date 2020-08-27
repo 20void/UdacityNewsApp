@@ -10,18 +10,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.Date;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,6 +34,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Article>> {
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public RecyclerView recyclerView;
     private ArticleAdapter aAdapter;
     private ProgressBar progressBar;
+    private TextView emptyState;
     public final String URL = "https://content.guardianapis.com/search?section=technology&from-date=2020-08-24&to-date=2020-08-26&q=technology&api-key=test";
 
     @Override
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         recyclerView = findViewById(R.id.recycler);
         progressBar = findViewById(R.id.progress_bar);
+        emptyState = findViewById(R.id.empty);
 
         aAdapter = new ArticleAdapter(articles);
         recyclerView.setAdapter(aAdapter);
@@ -161,12 +168,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader onCreateLoader(int id, @Nullable Bundle args) {
         progressBar.setVisibility(View.VISIBLE);
-        return new ArticleTaskLoader(this, URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String orderbypref = sharedPrefs.getString("order_by", getString(R.string.sortby_newest_value));
+
+
+        Uri baseUri = Uri.parse(URL);
+
+        Uri.Builder builder = baseUri.buildUpon();
+        builder.appendQueryParameter("order-by", orderbypref);
+        Log.v("URI STRING", builder.toString());
+
+
+
+        return new ArticleTaskLoader(this, builder.toString());
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Article>> loader, ArrayList<Article> data) {
         progressBar.setVisibility(View.GONE);
+
+
         aAdapter.setNewsArray(data);
     }
 

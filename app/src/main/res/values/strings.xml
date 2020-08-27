@@ -3,8 +3,8 @@
     <string name="settingsactivity_name">Settings</string>
     <string name="order_by">Order By</string>
     <string name="order_by_key">order_by</string>
-    <string name="sortby_date">Date</string>
-    <string name="sortby_articletitle">Alphabetically</string>
-    <string name="sortby_date_value" translatable="false">date</string>
-    <string name="sortby_articletitle_value" translatable="false">alphabetically</string>
+    <string name="sortby_newest">Newest</string>
+    <string name="sortby_oldest">Oldest</string>
+    <string name="sortby_newest_value" translatable="false">newest</string>
+    <string name="sortby_oldest_value" translatable="false">oldest</string>
 </resources>

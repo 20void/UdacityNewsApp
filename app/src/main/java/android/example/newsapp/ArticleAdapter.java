@@ -9,7 +9,10 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private ArrayList<Article> news;
@@ -42,7 +45,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         final Article article = news.get(position);
         holder.getArticleTextView().setText(article.getName());
         holder.getSectionTextView().setText(article.getSection());
-        holder.getDateTextView().setText(article.getDate());
+
+        String newdate = formatDate(article);
+        holder.getDateTextView().setText(newdate);
 
 
        holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +70,25 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
 
     public void setMyOnItemClickListener(MyOnItemClickLestener listener){
         this.listener = listener;
+    }
+
+    public String formatDate(Article a){
+        SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+
+        Date d = null;
+        try
+        {
+            d = input.parse(a.getDate());
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        String formatted = output.format(d);
+
+        return formatted;
     }
 
 }

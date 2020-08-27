@@ -4,7 +4,7 @@
         android:id="@+id/editpref"
         android:title="GAVNA 23" />
     <ListPreference
-        android:defaultValue="@string/sortby_date"
+        android:defaultValue="@string/sortby_newest"
         android:entries="@array/labels_sort_articles_by"
         android:entryValues="@array/values_sort_articles_by"
         android:key="@string/order_by_key"
