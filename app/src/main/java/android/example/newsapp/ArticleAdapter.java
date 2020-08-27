@@ -13,6 +13,18 @@ import java.util.ArrayList;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private ArrayList<Article> news;
+
+    public void setNewsArray(ArrayList<Article> list){
+        news = list;
+        notifyDataSetChanged();
+    }
+
+    public void clearAdapter(){
+        news = new ArrayList<>();
+    }
+    public ArticleAdapter(ArrayList<Article> a){
+        news = a;
+    }
     @NonNull
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,9 +37,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article article = news.get(position);
-
-        article.getName();
-
+        holder.getArticleTextView().setText(article.getName());
+        holder.getSectionTextView().setText(article.getSection());
+        holder.getAuthorTextView().setText(article.getAuthor());
+        holder.getDateTextView().setText(article.getDate());
     }
 
     @Override

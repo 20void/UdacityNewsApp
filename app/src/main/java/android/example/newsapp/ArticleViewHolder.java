@@ -16,9 +16,23 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         articleTextView = (TextView) itemView.findViewById(R.id.header);
         sectionTextView = (TextView) itemView.findViewById(R.id.section);
-        authorTextView = (TextView) itemView.findViewById(R.id.author);
         dateTextView = (TextView) itemView.findViewById(R.id.date);
     }
 
 
+    public TextView getArticleTextView() {
+        return articleTextView;
+    }
+
+    public TextView getSectionTextView() {
+        return sectionTextView;
+    }
+
+    public TextView getAuthorTextView() {
+        return authorTextView;
+    }
+
+    public TextView getDateTextView() {
+        return dateTextView;
+    }
 }
