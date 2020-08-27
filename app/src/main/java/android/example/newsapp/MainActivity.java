@@ -9,10 +9,12 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,8 +53,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         getSupportLoaderManager().initLoader(1, null, this).forceLoad();
 
+//        View.OnClickListener clickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        };
+//        recyclerView.setOnClickListener(clickListener);
 
 
+        final MyOnItemClickLestener l = new MyOnItemClickLestener() {
+            @Override
+            public void onItemClick(Article a) {
+                Uri uri = Uri.parse(a.getAuthor());
+                Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                Log.v("THIS IS CLICK LISTENER", a.getAuthor());
+                startActivity(i);
+
+            }
+        };
+
+        aAdapter.setMyOnItemClickListener(l);
     }
 
 

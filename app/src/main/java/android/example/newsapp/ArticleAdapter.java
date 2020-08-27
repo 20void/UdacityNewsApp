@@ -1,6 +1,9 @@
 package android.example.newsapp;
 
+
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private ArrayList<Article> news;
+    private MyOnItemClickLestener listener;
+
 
     public void setNewsArray(ArrayList<Article> list){
         news = list;
@@ -34,17 +39,37 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         return articleViewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        Article article = news.get(position);
+        final Article article = news.get(position);
         holder.getArticleTextView().setText(article.getName());
         holder.getSectionTextView().setText(article.getSection());
-        holder.getAuthorTextView().setText(article.getAuthor());
         holder.getDateTextView().setText(article.getDate());
+
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if (listener !=null) {
+                   listener.onItemClick(article);
+               }
+           }
+       });
+
+
+
+
+
     }
 
     @Override
     public int getItemCount() {
         return news.size();
     }
+
+    public void setMyOnItemClickListener(MyOnItemClickLestener listener){
+        this.listener = listener;
+    }
+
 }
